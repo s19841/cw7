@@ -20,7 +20,7 @@ namespace Cw7.Services
             "Studies on Studies.IdStudy = Enrollment.IdStudy WHERE IndexNumber = @IndexNumber";
 
         private const string StudentAuthenticationData =
-            "SELECT IndexNumber, FirstName, LastName, SaltPasswordHash, RefreshToken, RoleName FROM Student " +
+            "SELECT IndexNumber, FirstName, LastName, PasswordHash, RefreshToken, RoleName FROM Student " +
             "FULL JOIN RoleStudent on Student.IdStudent = RoleStudent.IdStudent " +
             "FULL JOIN Role on RoleStudent.IdRole = Role.IdRole " +
             "WHERE IndexNumber = @IndexNumber";
@@ -70,7 +70,7 @@ namespace Cw7.Services
                 IndexNumber = sqlDataReader["IndexNumber"].ToString(),
                 FirstName = sqlDataReader["FirstName"].ToString(),
                 LastName = sqlDataReader["LastName"].ToString(),
-                SaltPasswordHash = sqlDataReader["SaltPasswordHash"].ToString(),
+                PasswordHash = sqlDataReader["PasswordHash"].ToString(),
                 RefreshToken = sqlDataReader["RefreshToken"]?.ToString()
             };
             var roles = new List<string>();

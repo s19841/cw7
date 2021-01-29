@@ -31,7 +31,7 @@ namespace Cw7.Services
         public JwtSecurityToken Login(string username, string password)
         {
             var studentAuthenticationData = _dbStudentService.GetStudentsAuthenticationData(username);
-            return !_encryptionService.Verify(password, studentAuthenticationData?.SaltPasswordHash)
+            return !_encryptionService.Verify(password, studentAuthenticationData?.PasswordHash)
                 ? null
                 : GenerateJwtFromAuthenticationData(studentAuthenticationData);
         }

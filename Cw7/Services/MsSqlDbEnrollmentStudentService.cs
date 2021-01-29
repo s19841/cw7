@@ -33,8 +33,8 @@ namespace Cw7.Services
             "WHERE Studies.Name = @StudiesName";
 
         private const string InsertStudentQuery =
-            "INSERT INTO Student(IndexNumber, FirstName, LastName, BirthDate, IdEnrollment, SaltPasswordHash) " +
-            "VALUES (@IndexNumber, @FirstName, @LastName, @BirthDate, @IdEnrollment, @SaltPasswordHash)";
+            "INSERT INTO Student(IndexNumber, FirstName, LastName, BirthDate, IdEnrollment, PasswordHash) " +
+            "VALUES (@IndexNumber, @FirstName, @LastName, @BirthDate, @IdEnrollment, @PasswordHash)";
 
         private readonly Func<string, string> _encryptFunction;
 
@@ -140,7 +140,7 @@ namespace Cw7.Services
             _sqlCommand.Parameters.AddWithValue("FirstName", _enrollRequest.FirstName);
             _sqlCommand.Parameters.AddWithValue("LastName", _enrollRequest.LastName);
             _sqlCommand.Parameters.AddWithValue("BirthDate", _enrollRequest.BirthDate);
-            _sqlCommand.Parameters.AddWithValue("SaltPasswordHash", _encryptFunction(_enrollRequest.Password));
+            _sqlCommand.Parameters.AddWithValue("PasswordHash", _encryptFunction(_enrollRequest.Password));
             if (!_sqlCommand.Parameters.Contains("IdEnrollment"))
                 _sqlCommand.Parameters.AddWithValue("IdEnrollment", newStudent.IdEnrollment);
             if (_sqlCommand.ExecuteNonQuery() == 0)
